@@ -194,57 +194,5 @@ class Race
         $this->updated_at = new \DateTime();
     }
 
-    public function getMediumDistanceFinishTime(): ?string
-    {
-        if ($this->getDistance() === 'medium') {
-            return $this->finishTIme; 
-        }
-
-        return null;
-    }
-
-    public function getLongDistanceFinishTime(): ?string
-    {
-        if ($this->getDistance() === 'long') {
-            return $this->finishTIme;
-        }
-
-        return null;
-    }
-
-    public function calculateTimeDifference(): ?string
-    {
-        $mediumFinishTime = $this->getMediumDistanceFinishTimeAsTimestamp();
-        $longFinishTime = $this->getLongDistanceFinishTimeAsTimestamp();
-
-        if ($mediumFinishTime && $longFinishTime) {
-            $timeDifference = $longFinishTime - $mediumFinishTime;
-            return gmdate('H:i:s', $timeDifference); // Format the time difference
-        }
-
-        return null;
-    }
-
-    private function convertTimeToTimestamp(?string $time): ?int
-    {
-        if ($time) {
-            $time = \DateTime::createFromFormat('H:i:s', $time);
-            if ($time instanceof \DateTime) {
-                return $time->getTimestamp();
-            }
-        }
-
-        return null;
-    }
-
-    public function getMediumDistanceFinishTimeAsTimestamp(): ?int
-    {
-        return $this->convertTimeToTimestamp($this->getMediumDistanceFinishTime());
-    }
-
-    public function getLongDistanceFinishTimeAsTimestamp(): ?int
-    {
-        return $this->convertTimeToTimestamp($this->getLongDistanceFinishTime());
-    }
 
 }
